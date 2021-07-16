@@ -154,12 +154,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Webpage\Finish.aspx" />
     <Content Include="Webpage\Home.aspx" />
-    <Content Include="Webpage\HomePersonal.aspx" />
-    <Content Include="Webpage\HomeMarket.aspx" />
-    <Content Include="Webpage\HomeSME.aspx" />
-    <Content Include="Webpage\HomeAccount.aspx" />
-    <Content Include="Webpage\HomeOffice.aspx" />
-    <Content Include="Webpage\HomeIT.aspx" />
     <Content Include="Webpage\InPerson.aspx" />
     <Content Include="Webpage\OutPerson.aspx" />
     <Content Include="Webpage\PSSugar.jpg" />
@@ -270,48 +264,6 @@
     </Compile>
     <Compile Include="Webpage\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomePersonal.aspx.cs">
-      <DependentUpon>HomePersonal.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomePersonal.aspx.designer.cs">
-      <DependentUpon>HomePersonal.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomeMarket.aspx.cs">
-      <DependentUpon>HomeMarket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomeMarket.aspx.designer.cs">
-      <DependentUpon>HomeMarket.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomeSME.aspx.cs">
-      <DependentUpon>HomeSME.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomeSME.aspx.designer.cs">
-      <DependentUpon>HomeSME.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomeAccount.aspx.cs">
-      <DependentUpon>HomeAccount.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomeAccount.aspx.designer.cs">
-      <DependentUpon>HomeAccount.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomeOffice.aspx.cs">
-      <DependentUpon>HomeOffice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomeOffice.aspx.designer.cs">
-      <DependentUpon>HomeOffice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Webpage\HomeIT.aspx.cs">
-      <DependentUpon>HomeIT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Webpage\HomeIT.aspx.designer.cs">
-      <DependentUpon>HomeIT.aspx</DependentUpon>
     </Compile>
     <Compile Include="Webpage\InPerson.aspx.cs">
       <DependentUpon>InPerson.aspx</DependentUpon>
