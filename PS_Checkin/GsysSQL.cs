@@ -720,7 +720,7 @@ namespace PS_Checkin
             return lvReturn;
         }
 
-        public static string fncCheckFactionCode(string lvFaction)
+        public static string fncCheckFactionName(string lvFaction)
         {
             #region //Connect Database 
             MySqlConnection con = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["PSConnection"].ToString());
@@ -732,13 +732,13 @@ namespace PS_Checkin
 
             cmd.Connection = con;
             con.Open();
-            cmd.CommandText = "SELECT * FROM cane_activityimage";
+            cmd.CommandText = "SELECT Faction_Name FROM emp_faction Where Faction_ID = '" + lvFaction + "'";
             dr = cmd.ExecuteReader();
             if (dr.HasRows)
             {
                 while (dr.Read())
                 {
-                    lvReturn = dr["PlanId"].ToString();
+                    lvReturn = dr["Faction_Name"].ToString();
                 }
             }
             dr.Close();

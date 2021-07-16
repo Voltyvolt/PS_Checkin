@@ -24,11 +24,10 @@ namespace PS_Checkin.Webpage
                 string[] lvArr = lvData.Split(':');
                 lvFaction = lvArr[1];
                 var lvFactionCode = lvFaction;
-                
-                //ค้นหารหัสแผนก
-                
+                var factionName = GsysSQL.fncCheckFactionName(lvFactionCode);
 
                 //เข้าฟังก์ชันโหลดข้อมูลลง Combobox
+                lb_Faction.Text = factionName;
                 fncLoadComboboxEmp(lvFactionCode);
                 txt_DateTime.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 txt_Time.Text = DateTime.Now.ToString("HH:mm");
