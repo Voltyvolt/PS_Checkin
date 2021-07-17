@@ -7,18 +7,34 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.Text;
 using System.Data;
+using System.Globalization;
+using System.Net.Sockets;
 
 namespace PS_Checkin.Webpage
 {
     public partial class InPerson : System.Web.UI.Page
     {
         string lvFaction = "";
+        string LocalMachine = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 //รับข้อมูลแผนกจาก Link
                 var lvData = Request.QueryString["Data"].ToString();
+
+                //ค้นหาหมายเลข Local IP
+                IPAddress host = IPAddress.None;
+                var ips = Dns.GetHostAddresses(Dns.GetHostName());
+                foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
+                {
+                    host = ip;
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        break;
+                }
+
+                LocalMachine = host.ToString();
+                lb_local.Text = LocalMachine;
 
                 //แยกข้อมูลต่างๆ
                 string[] lvArr = lvData.Split(':');
@@ -31,6 +47,32 @@ namespace PS_Checkin.Webpage
                 fncLoadComboboxEmp(lvFactionCode);
                 txt_DateTime.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 txt_Time.Text = DateTime.Now.ToString("HH:mm");
+
+                //ค้นหาหมายเลข ID อันสุดท้ายของคนนี้
+                DataTable DT = new DataTable();
+                var lvSQL = "Select * From ps_checkin Where LocalMachine = '" + LocalMachine + "' Order by id Desc LIMIT 1";
+                DT = GsysSQL.fncGetQueryData(lvSQL, DT);
+
+                //ประกาศตัวแปร
+                var EmpID = string.Empty;
+                var EmpName = string.Empty;
+                var VisitorID = string.Empty;
+                var VisitorName = string.Empty;
+                var Subject = string.Empty;
+                var DateIN = string.Empty;
+                var TimeIN = string.Empty;
+                var DateOUT = string.Empty;
+
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    //VisitorID = DT.Rows[i]["VisitorID"]
+                    DateOUT = DT.Rows[i]["DateOUT"].ToString();
+                }
+
+                if(DateOUT == "")
+                {
+                    
+                }
             }
         }
 
@@ -79,9 +121,9 @@ namespace PS_Checkin.Webpage
             var Remark = string.Empty;
 
             //Insert ข้อมูล
-            var lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, Remark) " +
+            var lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, LocalMachine, Remark) " +
                 "Values ('" + EmpID + "', '" + EmpName + "', '" + VisitorID + "', '" + VisitorName + "', '" + Subject + "', '" + DateIN + "', '" + TimeIN + "', " +
-                "'" + DateOUT + "', '" + TimeOUT + "', '" + Remark + "')";
+                "'" + DateOUT + "', '" + TimeOUT + "', '" + LocalMachine + "', '" + Remark + "')";
             var Success = GsysSQL.fncExecuteQueryData(lvSQL);
 
             //ถ้าสำเร็จเด้งไปหน้า Finish
@@ -109,10 +151,11 @@ namespace PS_Checkin.Webpage
             var DateOUT = GsysFunc.fncChangeTDate(txt_DateTime.Text);
             var TimeOUT = txt_Time.Text;
             var Remark = string.Empty;
+            var LocalMachine = lb_local.Text;
 
             //ค้นหาหมายเลข ID อันสุดท้ายที่เช็คอินเข้ามา
             DataTable DT = new DataTable();
-            var lvSQL = "Select * From ps_checkin Where EmpID = '" + EmpID + "' And DateIN <> '' Order by id Desc LIMIT 1";
+            var lvSQL = "Select * From ps_checkin Where LocalMachine = '" + LocalMachine + "' And DateIN <> '' Order by id Desc LIMIT 1";
             DT = GsysSQL.fncGetQueryData(lvSQL, DT);
 
             for (int i = 0; i < DT.Rows.Count; i++)
@@ -130,5 +173,6 @@ namespace PS_Checkin.Webpage
                 Response.Redirect("Finish.aspx");
             }
         }
+        
     }
 }

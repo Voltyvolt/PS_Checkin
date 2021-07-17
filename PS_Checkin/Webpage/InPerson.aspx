@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InPerson.aspx.cs" Inherits="PS_Checkin.Webpage.InPerson" %>
-
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
@@ -93,13 +92,10 @@
                 <div class="lael">
                     <asp:Label ID="Label1" Text="ชื่อ/รหัสพนักงาน" runat="server"></asp:Label>
                 </div>
-
-
             <br />
 
-            
                 <div class="tbox">
-                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" HorizontalAlign="Center" Width="500px" KeyFieldName="Employee_ID" AutoPostBack="True" Theme="Glass">
+                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" HorizontalAlign="Center" Width="500px" KeyFieldName="Employee_ID" Theme="Glass">
                         <GridViewProperties EnableCallBacks="False">
                             <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
                         </GridViewProperties>
@@ -111,12 +107,13 @@
             
                 <div class="lael">
                     <asp:Label ID="Label2" Text="ผู้ติดต่อ" runat="server"></asp:Label>
+                    <asp:Label ID="lb_local" Text="ผู้ติดต่อ" runat="server"></asp:Label>
                 </div>
 
                 <br />
 
                 <div class="tbox">
-                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="500px" runat="server" ValueType="System.String" Theme="Glass"></dx:ASPxComboBox>
+                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="500px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True"></dx:ASPxComboBox>
                 </div>
 
                 <br />

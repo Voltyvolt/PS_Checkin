@@ -11,7 +11,7 @@ namespace PS_Checkin.Webpage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
         }
 
         void PersonIN_Click()
