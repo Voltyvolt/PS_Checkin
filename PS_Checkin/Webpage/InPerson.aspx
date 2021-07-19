@@ -90,7 +90,7 @@
 
                 
                 <div class="lael">
-                    <asp:Label ID="Label1" Text="ชื่อ/รหัสพนักงาน" runat="server"></asp:Label>
+                    <asp:Label ID="Label1" Text="ชื่อ/รหัสพนักงาน ผู้ติดต่อ" runat="server"></asp:Label>
                 </div>
             <br />
 
@@ -106,8 +106,8 @@
 
             
                 <div class="lael">
-                    <asp:Label ID="Label2" Text="ผู้ติดต่อ" runat="server"></asp:Label>
-                    <asp:Label ID="lb_local" Text="ผู้ติดต่อ" runat="server"></asp:Label>
+                    <asp:Label ID="Label2" Text="ผู้รับเรื่อง" runat="server"></asp:Label>
+                    <asp:Label ID="lb_local" Text="" runat="server"></asp:Label>
                 </div>
 
                 <br />

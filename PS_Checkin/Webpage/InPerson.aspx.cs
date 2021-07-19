@@ -62,16 +62,30 @@ namespace PS_Checkin.Webpage
                 var DateIN = string.Empty;
                 var TimeIN = string.Empty;
                 var DateOUT = string.Empty;
+                var TimeOUT = string.Empty;
 
                 for (int i = 0; i < DT.Rows.Count; i++)
                 {
-                    //VisitorID = DT.Rows[i]["VisitorID"]
+                    EmpID = DT.Rows[i]["EmpID"].ToString();
+                    EmpName = DT.Rows[i]["EmpName"].ToString();
+                    VisitorID = DT.Rows[i]["VisitorID"].ToString();
+                    VisitorName = DT.Rows[i]["VisitorName"].ToString();
+                    Subject = DT.Rows[i]["Subject"].ToString();
+                    DateIN = DT.Rows[i]["DateIN"].ToString();
+                    TimeIN = DT.Rows[i]["TimeIN"].ToString();
                     DateOUT = DT.Rows[i]["DateOUT"].ToString();
+                    TimeOUT = DT.Rows[i]["TimeOUT"].ToString();
+                    
                 }
 
                 if(DateOUT == "")
                 {
-                    
+                    var EmpNameSplit = EmpName.Split(' ');
+                    var Emp = EmpID + "; " + EmpNameSplit[1] + "; " + EmpNameSplit[3];
+                    txtEmpID.Text = Emp;
+                    var Visit = VisitorID + " " + VisitorName;
+                    cmb_Visitor.Text = Visit;
+                    txt_Subject.Text = Subject;
                 }
             }
         }
@@ -118,6 +132,7 @@ namespace PS_Checkin.Webpage
             var TimeIN = txt_Time.Text;
             var DateOUT = string.Empty;
             var TimeOUT = string.Empty;
+            LocalMachine = lb_local.Text;
             var Remark = string.Empty;
 
             //Insert ข้อมูล
