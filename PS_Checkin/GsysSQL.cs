@@ -773,5 +773,32 @@ namespace PS_Checkin
 
             return lvReturn;
         }
+
+        public static string fncCheckCheckRegister(string lvEmpName)
+        {
+            #region //Connect Database 
+            MySqlConnection con = new MySqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["PSConnection"].ToString());
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlDataReader dr;
+            #endregion  
+
+            string lvReturn = "";
+
+            cmd.Connection = con;
+            con.Open();
+            cmd.CommandText = "SELECT Name From ps_checkinreg Where Name = '" + lvEmpName + "' ";
+            dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    lvReturn = dr["Name"].ToString();
+                }
+            }
+            dr.Close();
+            con.Close();
+
+            return lvReturn;
+        }
     }
 }

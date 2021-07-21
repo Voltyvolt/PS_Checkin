@@ -79,7 +79,7 @@
         <div class="panel-control">
             <center>
                 <br />
-                <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/Webpage/PSSugar.jpg" Width="300px"></dx:ASPxImage>
+                <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/PS_Checkin/PSSugar.jpg" Width="300px"></dx:ASPxImage>
                 <br />
                 <br />
                 <div>
@@ -95,12 +95,13 @@
             <br />
 
                 <div class="tbox">
-                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" HorizontalAlign="Center" Width="500px" KeyFieldName="Employee_ID" Theme="Glass">
+                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="500px" KeyFieldName="Employee_ID" Theme="Glass">
                         <GridViewProperties EnableCallBacks="False">
                             <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
                         </GridViewProperties>
                     </dx:ASPxGridLookup>
                      <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID, Employee_Name, Employee_LName FROM employee"></asp:SqlDataSource>
+                     <dx:ASPxTextBox ID="txt_EmpOUT" PlaceHolder="ชื่อผู้เข้าใช้" runat="server" Width="500px" Theme="iOS"></dx:ASPxTextBox>
                 </div>
             <br />
 

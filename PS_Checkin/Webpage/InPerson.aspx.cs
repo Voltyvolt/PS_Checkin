@@ -20,6 +20,8 @@ namespace PS_Checkin.Webpage
         {
             if (!IsPostBack)
             {
+                txt_EmpOUT.Visible = false;
+                btn_CheckOUT.Enabled = false;
                 //รับข้อมูลแผนกจาก Link
                 var lvData = Request.QueryString["Data"].ToString();
 
@@ -75,17 +77,39 @@ namespace PS_Checkin.Webpage
                     TimeIN = DT.Rows[i]["TimeIN"].ToString();
                     DateOUT = DT.Rows[i]["DateOUT"].ToString();
                     TimeOUT = DT.Rows[i]["TimeOUT"].ToString();
-                    
                 }
 
-                if(DateOUT == "")
+                //ค้นหา Register ของคนนี้
+                DataTable DTNew = new DataTable();
+                lvSQL = "Select * From ps_checkinreg Where Name = '" + EmpName + "' ";
+                DTNew = GsysSQL.fncGetQueryData(lvSQL, DTNew);
+
+                var Name = string.Empty;
+                var EmpID_Tel = string.Empty;
+
+                for (int i = 0; i < DTNew.Rows.Count; i++)
+                {
+                    Name = DTNew.Rows[i]["Name"].ToString();
+                    EmpID_Tel = DTNew.Rows[i]["EmpID_Tel"].ToString();
+                }
+
+
+                if(DateOUT == "" && Name != "")
                 {
                     var EmpNameSplit = EmpName.Split(' ');
                     var Emp = EmpID + "; " + EmpNameSplit[1] + "; " + EmpNameSplit[3];
-                    txtEmpID.Text = Emp;
+                    txtEmpID.Visible = false;
+                    txt_EmpOUT.Visible = true;
+                    txt_EmpOUT.Text = Emp;
                     var Visit = VisitorID + " " + VisitorName;
                     cmb_Visitor.Text = Visit;
                     txt_Subject.Text = Subject;
+
+                    txt_EmpOUT.Enabled = false;
+                    cmb_Visitor.Enabled = false;
+                    txt_Subject.Enabled = false;
+                    btn_CheckIN.Enabled = false;
+                    btn_CheckOUT.Enabled = true;
                 }
             }
         }
@@ -119,6 +143,8 @@ namespace PS_Checkin.Webpage
         protected void btn_CheckIN_Click(object sender, EventArgs e)
         {
             //ประกาศตัวแปร
+            var lvSQL = string.Empty;
+            var Success = string.Empty;
             var Emp = txtEmpID.Text;
             var EmpSplit = Emp.Split(';');
             var EmpID = EmpSplit[0];
@@ -135,11 +161,19 @@ namespace PS_Checkin.Webpage
             LocalMachine = lb_local.Text;
             var Remark = string.Empty;
 
+            var NameregCheck = GsysSQL.fncCheckCheckRegister(EmpName); //เช็คว่า Emp นี้เคย Register แล้วหรือไม่
+
+            if(NameregCheck == "")
+            {
+                lvSQL = "Insert Into ps_checkinreg (Name, EmpID_Tel) Values ('" + EmpName + "', '" + EmpID + "')";
+                Success = GsysSQL.fncExecuteQueryData(lvSQL);
+            }
+
             //Insert ข้อมูล
-            var lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, LocalMachine, Remark) " +
+            lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, LocalMachine, Remark) " +
                 "Values ('" + EmpID + "', '" + EmpName + "', '" + VisitorID + "', '" + VisitorName + "', '" + Subject + "', '" + DateIN + "', '" + TimeIN + "', " +
                 "'" + DateOUT + "', '" + TimeOUT + "', '" + LocalMachine + "', '" + Remark + "')";
-            var Success = GsysSQL.fncExecuteQueryData(lvSQL);
+            Success = GsysSQL.fncExecuteQueryData(lvSQL);
 
             //ถ้าสำเร็จเด้งไปหน้า Finish
             if(Success == "Success")
@@ -152,7 +186,7 @@ namespace PS_Checkin.Webpage
         {
             //ประกาศตัวแปร
             var lvID = string.Empty;
-            var Emp = txtEmpID.Text;
+            var Emp = txt_EmpOUT.Text;
             var EmpSplit = Emp.Split(';');
             var EmpID = EmpSplit[0];
             var EmpName = EmpSplit[1] + " " + EmpSplit[2];

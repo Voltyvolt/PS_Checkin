@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="PS_Checkin.Webpage.Home" %>
-
 <%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
@@ -7,9 +6,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
 
     <style>
-            body {
-	            background-color: #FAEBD7;
-            }
+        body {
+	        background-color: #FAEBD7;
+        }
 
         .panel {
             font-family: 'Prompt', sans-serif;
@@ -53,7 +52,7 @@
                 <br />
                 <br />
                 <br />
-                <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/Webpage/PSSugar.jpg" Width="300px"></dx:ASPxImage>
+                <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/PS_Checkin/PSSugar.jpg" Width="300px"></dx:ASPxImage>
                 <br />
                 <br />
                 <br />

@@ -11,12 +11,18 @@ namespace PS_Checkin.Webpage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
+            var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
+            //Page.Response.Write("<script>console.log('" + QueryString + "');</script>");
         }
 
         void PersonIN_Click()
         {
-            var lvUrl = "InPerson.aspx?Data=" + ":133";
+            var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
+            Page.Response.Write("<script>console.log('" + QueryString + "');</script>");
+            string[] lvURlData = QueryString.Split('=');
+            Page.Response.Write("<script>console.log('" + lvURlData + "');</script>");
+            var lvData = lvURlData[1];
+            var lvUrl = "InPerson.aspx?Data=" + lvData;
             Response.Redirect(lvUrl);
         }
 
