@@ -76,6 +76,15 @@ namespace PS_Checkin.Webpage {
         protected global::DevExpress.Web.ASPxTextBox txt_EmpOUT;
         
         /// <summary>
+        /// ASPxButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton ASPxButton1;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>

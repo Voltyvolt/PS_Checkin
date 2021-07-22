@@ -2,11 +2,6 @@
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 <%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
- <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
-
-<webopt:bundlereference runat="server" path="~/Content/css" />
 <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet" />
 <link href="Content/font-awesome.min.css" rel="stylesheet" />
@@ -95,20 +90,23 @@
             <br />
 
                 <div class="tbox">
-                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="500px" KeyFieldName="Employee_ID" Theme="Glass">
-                        <GridViewProperties EnableCallBacks="False">
+                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="500px" KeyFieldName="Employee_ID" Theme="Glass" OnDataBound="txtEmpID_DataBound" OnTextChanged="txtEmpID_TextChanged">
+                        <GridViewProperties>
                             <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
                         </GridViewProperties>
                     </dx:ASPxGridLookup>
                      <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID, Employee_Name, Employee_LName FROM employee"></asp:SqlDataSource>
                      <dx:ASPxTextBox ID="txt_EmpOUT" PlaceHolder="ชื่อผู้เข้าใช้" runat="server" Width="500px" Theme="iOS"></dx:ASPxTextBox>
+                    <dx:ASPxButton ID="ASPxButton1" runat="server" Text="ค้นหาข้อมูล" Theme="Glass">
+                    </dx:ASPxButton>
+                    <br />
                 </div>
             <br />
 
             
                 <div class="lael">
                     <asp:Label ID="Label2" Text="ผู้รับเรื่อง" runat="server"></asp:Label>
-                    <asp:Label ID="lb_local" Text="" runat="server"></asp:Label>
+                    <asp:Label ID="lb_local" runat="server" Visible="False"></asp:Label>
                 </div>
 
                 <br />
