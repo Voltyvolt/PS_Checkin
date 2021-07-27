@@ -37,6 +37,8 @@
 }
 </style>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -60,8 +62,17 @@
                     <asp:Label Text="ประเภทบุคคล" runat="server"></asp:Label>
                     <br />
                     <br />
-                    <asp:Button runat="server" CssClass="btnsubmit" Text="บุคคลภายใน" ID="btn_PersonIn" OnClick="btn_PersonIn_Click" />
-                    <asp:Button runat="server" CssClass="btnsubmit" Text="บุคคลภายนอก" ID="btn_PersonOut" OnClick="btn_PersonOut_Click" />
+
+                    <div>
+                        <asp:Button runat="server" CssClass="btnsubmit" Text="บุคคลภายใน" ID="btn_PersonIn" OnClick="btn_PersonIn_Click" />
+                    </div>
+
+                    <br />
+
+                    <div>
+                         <asp:Button runat="server" CssClass="btnsubmit" Text="บุคคลภายนอก" ID="btn_PersonOut" OnClick="btn_PersonOut_Click" />
+                    </div>
+                   
                 </div>
             </center>
         </div>

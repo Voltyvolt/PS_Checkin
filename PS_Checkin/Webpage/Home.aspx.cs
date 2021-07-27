@@ -17,20 +17,26 @@ namespace PS_Checkin.Webpage
 
         void PersonIN_Click()
         {
-            //var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
-            //Page.Response.Write("<script>console.log('" + QueryString + "');</script>");
-            //string[] lvURlData = QueryString.Split(':');
-            //Page.Response.Write("<script>console.log('" + lvURlData + "');</script>");
-            //var lvData = lvURlData[1];
-            var lvData = "133";
+        //    var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
+        //    Page.Response.Write("<script>console.log('" + QueryString + "');</script>");
+        //    string[] lvURlData = QueryString.Split(':');
+        //    Page.Response.Write("<script>console.log('" + lvURlData + "');</script>");
+        //    var lvData = lvURlData[1];
+            var lvData = "121";
             var lvUrl = "InPerson.aspx?Data=:" + lvData;
             Response.Redirect(lvUrl);
         }
 
         void PersonOut_Click()
         {
-            //var lvUrl = "InPerson.aspx?Data=" + 
-            //Response.Redirect("InPerson.aspx");
+            var QueryString = Request.QueryString["Data"].ToString(); //หารหัสแผนกจาก Link
+            Page.Response.Write("<script>console.log('" + QueryString + "');</script>");
+            string[] lvURlData = QueryString.Split(':');
+            Page.Response.Write("<script>console.log('" + lvURlData + "');</script>");
+            var lvData = lvURlData[1];
+            //var lvData = "125";
+            var lvUrl = "OutPerson.aspx?Data=:" + lvData;
+            Response.Redirect(lvUrl);
         }
 
         protected void btn_PersonIn_Click(object sender, EventArgs e)

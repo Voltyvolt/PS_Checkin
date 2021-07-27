@@ -22,6 +22,24 @@ namespace PS_Checkin.Webpage {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// ASPxImage1 control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,13 @@ namespace PS_Checkin.Webpage {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// txtEmpID control.
+        /// txt_EmpID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridLookup txtEmpID;
+        protected global::DevExpress.Web.ASPxGridLookup txt_EmpID;
         
         /// <summary>
         /// SQL_EMPLOYEE control.
@@ -103,6 +121,15 @@ namespace PS_Checkin.Webpage {
         protected global::System.Web.UI.WebControls.Label lb_local;
         
         /// <summary>
+        /// lb_Fac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_Fac;
+        
+        /// <summary>
         /// cmb_Visitor control.
         /// </summary>
         /// <remarks>
@@ -137,6 +164,33 @@ namespace PS_Checkin.Webpage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// lb_Date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_Date;
+        
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
+        
+        /// <summary>
+        /// lb_Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_Time;
         
         /// <summary>
         /// txt_DateTime control.
@@ -182,5 +236,14 @@ namespace PS_Checkin.Webpage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_CheckOUT;
+        
+        /// <summary>
+        /// ASPxLoadingPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLoadingPanel ASPxLoadingPanel1;
     }
 }

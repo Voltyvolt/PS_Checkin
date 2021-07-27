@@ -8,6 +8,9 @@
     <style>
         body {
 	        background-color: #FAEBD7;
+            font-family: 'Prompt', sans-serif;
+            font-size: 24px;
+            color: black;
         }
 
         .panel {
@@ -51,8 +54,9 @@
                 <br />
                 <br />
 
-                <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/PS_Checkin/Success_img.jpg" Width="300px"></dx:ASPxImage>
-
+                <dx:ASPxImage ID="ASPxImage2" runat="server" ShowLoadingImage="true" ImageUrl="~/PS_Checkin/Success_img.png" Width="300px"></dx:ASPxImage>
+                <br />
+                <br />
                 <asp:Label Text="บันทึกข้อมูลสำเร็จ" runat="server"></asp:Label>
 
             </center>

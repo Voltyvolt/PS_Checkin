@@ -40,7 +40,7 @@
         }
 
 </style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!DOCTYPE html>
 
@@ -51,112 +51,104 @@
 <body>
     <form id="form1" runat="server">
 
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
-                <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="bootstrap" />
-                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
-                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
-                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
-                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
-                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
-                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
-                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-                <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
-            </Scripts>
+        <asp:ScriptManager EnablePartialRendering="true" ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
 
         <div class="panel-control">
             <center>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
                 <br />
                 <dx:ASPxImage ID="ASPxImage1" runat="server" ShowLoadingImage="true" ImageUrl="~/PS_Checkin/PSSugar.jpg" Width="300px"></dx:ASPxImage>
                 <br />
                 <br />
                 <div>
                     <asp:Label ID="lb_Faction" Text="แผนกต่างๆ" runat="server"></asp:Label>
-                    <br />
-                    <br />
                 </div>
 
+                <br />
                 
                 <div class="lael">
                     <asp:Label ID="Label1" Text="ชื่อ/รหัสพนักงาน ผู้ติดต่อ" runat="server"></asp:Label>
                 </div>
-            <br />
 
-                <div class="tbox">
-                    <dx:ASPxGridLookup ID="txtEmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="500px" KeyFieldName="Employee_ID" Theme="Glass" OnDataBound="txtEmpID_DataBound" OnTextChanged="txtEmpID_TextChanged">
-                        <GridViewProperties>
+               
+                    <dx:ASPxGridLookup ID="txt_EmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="300px" KeyFieldName="Employee_ID" Theme="Default">
+                        <GridViewProperties EnableCallBacks="False">
                             <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
                         </GridViewProperties>
                     </dx:ASPxGridLookup>
                      <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID, Employee_Name, Employee_LName FROM employee"></asp:SqlDataSource>
-                     <dx:ASPxTextBox ID="txt_EmpOUT" PlaceHolder="ชื่อผู้เข้าใช้" runat="server" Width="500px" Theme="iOS"></dx:ASPxTextBox>
-                    <dx:ASPxButton ID="ASPxButton1" runat="server" Text="ค้นหาข้อมูล" Theme="Glass">
+                     <dx:ASPxTextBox ID="txt_EmpOUT" PlaceHolder="ชื่อผู้เข้าใช้" runat="server" Width="300px" Theme="iOS"></dx:ASPxTextBox>
+                    <dx:ASPxButton ID="ASPxButton1" runat="server" Text="ตรวจสอบข้อมูล" Theme="Material" OnClick="ASPxButton1_Click" style="height: 26px">
                     </dx:ASPxButton>
-                    <br />
-                </div>
-            <br />
+
+                <br />
+                <br />
 
             
                 <div class="lael">
-                    <asp:Label ID="Label2" Text="ผู้รับเรื่อง" runat="server"></asp:Label>
+                    <asp:Label ID="Label2" Text="ผู้รับเรื่อง" runat="server" Visible="False"></asp:Label>
                     <asp:Label ID="lb_local" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="lb_Fac" runat="server" Visible="False"></asp:Label>
                 </div>
 
-                <br />
-
                 <div class="tbox">
-                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="500px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True"></dx:ASPxComboBox>
+                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="300px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True" OnSelectedIndexChanged="cmb_Visitor_SelectedIndexChanged" OnValueChanged="cmb_Visitor_ValueChanged" Visible="False"></dx:ASPxComboBox>
                 </div>
 
                 <br />
 
                 <div class="lael">
-                    <asp:Label ID="Label3" Text="เรื่องที่ติดต่อ" runat="server"></asp:Label>
+                    <asp:Label ID="Label3" Text="เรื่องที่ติดต่อ" runat="server" Visible="False"></asp:Label>
                 </div>
 
-                <br />
-
                 <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="500px" Theme="iOS"></dx:ASPxTextBox>
+                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False"></dx:ASPxTextBox>
                 </div>
 
                 <br />
 
                 <div class="lael">
-                    <asp:Label ID="Label4" Text="วันที่/เวลา" runat="server"></asp:Label>
+                    <asp:Label ID="Label4" Text="วันที่ : " runat="server" Visible="False"></asp:Label>
+                <asp:Label ID="lb_Date" Text="วันที่/เวลา" runat="server" Visible="False"></asp:Label>
+                    </div>
+                   
+                <br />
+
+                <div class="lael">
+                     <asp:Label ID="Label6" Text="เวลา : " runat="server" Visible="False"></asp:Label>
+                 <asp:Label ID="lb_Time" Text="วันที่/เวลา" runat="server" Visible="False"></asp:Label>
+                    </div>
+
+                <div>
+                    <dx:ASPxDateEdit ID="txt_DateTime" Date="2021-07-16" Font-Size="Medium" DisplayFormatString="dd/MM/yyyy" EditFormat="Custom" EditFormatString="dd/MM/yyyy" CssClass="form-control" Width="250px" runat="server" Theme="Glass" Visible="False"></dx:ASPxDateEdit>
+                   <dx:ASPxTimeEdit ID="txt_Time" runat="server" Width="250px" Font-Size="Medium" CssClass="form-control" DisplayFormatString="HH:mm" EditFormat="Custom" EditFormatString="HH:mm" Theme="Glass" Visible="False"></dx:ASPxTimeEdit>
+                </div>
+                  
+                <br />
+
+                <div class="lael">
+                    <asp:Label ID="Label5" Text="กรุณาเช็คอินหรือเช็คเอาท์" runat="server" Visible="False"></asp:Label>
+                </div>
+
+
+                <div>
+                    <asp:Button runat="server" Text="เข้า" ID="btn_CheckIN" CssClass="btn" OnClick="btn_CheckIN_Click" Font-Size="X-Large" Visible="False"/>
                 </div>
 
                 <br />
 
                 <div>
-                    <dx:ASPxDateEdit ID="txt_DateTime" Date="2021-07-16" Font-Size="Medium" DisplayFormatString="dd/MM/yyyy" EditFormat="Custom" EditFormatString="dd/MM/yyyy" CssClass="form-control" Width="250px" runat="server" Theme="Glass"></dx:ASPxDateEdit>
-                   <dx:ASPxTimeEdit ID="txt_Time" runat="server" Width="250px" Font-Size="Medium" CssClass="form-control" DisplayFormatString="HH:mm" EditFormat="Custom" EditFormatString="HH:mm" Theme="Glass"></dx:ASPxTimeEdit>
+                     <asp:Button runat="server" Text="ออก" ID="btn_CheckOUT" CssClass="btn" OnClick="btn_CheckOUT_Click" Font-Size="X-Large" Visible="False" />
                 </div>
-                  
                 
-                <br />
+                  <dx:ASPxLoadingPanel ID="ASPxLoadingPanel1" runat="server" ClientInstanceName="LoadPanel" Modal="True" Theme="Moderno">
+                    </dx:ASPxLoadingPanel>
 
-                <div class="lael">
-                    <asp:Label ID="Label5" Text="กรุณาเช็คอินหรือเช็คเอาท์" runat="server"></asp:Label>
-                </div>
-
-                <br />
-
-                <asp:Button runat="server" Text="เข้า" ID="btn_CheckIN" CssClass="btn" OnClick="btn_CheckIN_Click"/>
-                <asp:Button runat="server" Text="ออก" ID="btn_CheckOUT" CssClass="btn" OnClick="btn_CheckOUT_Click" />
-
+                 </ContentTemplate>
+              </asp:UpdatePanel>
             </center>
-
-            
-             
-
         </div>
     </form>
 </body>
