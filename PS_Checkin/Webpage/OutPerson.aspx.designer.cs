@@ -118,7 +118,16 @@ namespace PS_Checkin.Webpage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cmb_Visitor;
+        protected global::DevExpress.Web.ASPxGridLookup cmb_Visitor;
+        
+        /// <summary>
+        /// SQL_EMPLOYEE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_EMPLOYEE;
         
         /// <summary>
         /// Label3 control.

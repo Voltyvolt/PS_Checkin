@@ -40,6 +40,8 @@
 }
 </style>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,6 +60,11 @@
                 <br />
                 <br />
                 <asp:Label Text="บันทึกข้อมูลสำเร็จ" runat="server"></asp:Label>
+
+                <br />
+                <br />
+                <dx:ASPxButton ID="ASPxButton1" runat="server" Height="35px" OnClick="ASPxButton1_Click" Text="ปิด" Theme="RedWine" Width="150px" Visible="False">
+                </dx:ASPxButton>
 
             </center>
         </div>

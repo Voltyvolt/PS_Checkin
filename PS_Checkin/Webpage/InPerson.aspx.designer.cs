@@ -145,7 +145,7 @@ namespace PS_Checkin.Webpage {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cmb_Visitor;
+        protected global::DevExpress.Web.ASPxGridLookup cmb_Visitor;
         
         /// <summary>
         /// Label3 control.

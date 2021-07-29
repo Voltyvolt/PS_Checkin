@@ -73,12 +73,12 @@
                 </div>
 
                
-                    <dx:ASPxGridLookup ID="txt_EmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="300px" KeyFieldName="Employee_ID" Theme="Default">
+                    <dx:ASPxGridLookup ID="txt_EmpID" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="300px" KeyFieldName="รหัสพนักงาน" Theme="Default" Font-Size="Medium">
                         <GridViewProperties EnableCallBacks="False">
                             <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
                         </GridViewProperties>
                     </dx:ASPxGridLookup>
-                     <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID, Employee_Name, Employee_LName FROM employee"></asp:SqlDataSource>
+                     <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID as 'รหัสพนักงาน', Employee_Name as 'ชื่อ', Employee_LName as 'นามสกุล' FROM employee"></asp:SqlDataSource>
                      <dx:ASPxTextBox ID="txt_EmpOUT" PlaceHolder="ชื่อผู้เข้าใช้" runat="server" Width="300px" Theme="iOS"></dx:ASPxTextBox>
                     <dx:ASPxButton ID="ASPxButton1" runat="server" Text="ตรวจสอบข้อมูล" Theme="Material" OnClick="ASPxButton1_Click" style="height: 26px">
                     </dx:ASPxButton>
@@ -96,7 +96,11 @@
                 </div>
 
                 <div class="tbox">
-                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="300px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True" OnSelectedIndexChanged="cmb_Visitor_SelectedIndexChanged" OnValueChanged="cmb_Visitor_ValueChanged" Visible="False"></dx:ASPxComboBox>
+                  <dx:ASPxGridLookup ID="cmb_Visitor" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="300px" KeyFieldName="รหัสพนักงาน" Theme="Default" Font-Size="Medium" Visible="False">
+                        <GridViewProperties EnableCallBacks="False">
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                    </dx:ASPxGridLookup>
                 </div>
 
                 <br />
@@ -106,7 +110,7 @@
                 </div>
 
                 <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False" AutoPostBack="True" OnTextChanged="txt_Subject_TextChanged"></dx:ASPxTextBox>
+                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False" OnTextChanged="txt_Subject_TextChanged" Font-Size="Medium"></dx:ASPxTextBox>
                 </div>
 
                 <br />

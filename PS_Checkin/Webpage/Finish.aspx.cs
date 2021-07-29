@@ -13,5 +13,11 @@ namespace PS_Checkin.Webpage
         {
 
         }
+
+        protected void ASPxButton1_Click(object sender, EventArgs e)
+        {
+            string script = "window.opener = 'Self';window.open('','_parent',''); window.close();";
+            ScriptManager.RegisterStartupScript(Page, typeof(string), "Close Window", script, true);
+        }
     }
 }

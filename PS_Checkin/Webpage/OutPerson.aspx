@@ -74,7 +74,7 @@
                 <br />
 
                 <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Tel" runat="server" Width="300px" Theme="iOS" AutoPostBack="True" OnTextChanged="txt_Tel_TextChanged"></dx:ASPxTextBox>
+                  <dx:ASPxTextBox ID="txt_Tel" runat="server" Width="300px" Theme="iOS" AutoPostBack="True" OnTextChanged="txt_Tel_TextChanged" Font-Size="Medium"></dx:ASPxTextBox>
                 </div>
 
                 <br />
@@ -86,7 +86,7 @@
                 <br />
 
                 <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Name" runat="server" Width="300px" Theme="iOS"></dx:ASPxTextBox>
+                  <dx:ASPxTextBox ID="txt_Name" runat="server" Width="300px" Theme="iOS" Font-Size="Medium"></dx:ASPxTextBox>
                 </div>
 
                 <br />
@@ -100,7 +100,12 @@
                 <br />
 
                  <div class="tbox">
-                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="300px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True" OnSelectedIndexChanged="cmb_Visitor_SelectedIndexChanged" Visible="False"></dx:ASPxComboBox>
+                                       <dx:ASPxGridLookup ID="cmb_Visitor" runat="server" DataSourceID="SQL_EMPLOYEE" Height="35px" Width="300px" KeyFieldName="Employee_ID" Theme="Default" Font-Size="Medium" Visible="False">
+                        <GridViewProperties EnableCallBacks="False">
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                    </dx:ASPxGridLookup>
+                     <asp:SqlDataSource ID="SQL_EMPLOYEE" runat="server" ConnectionString="<%$ ConnectionStrings:PSConnection %>" ProviderName="<%$ ConnectionStrings:PSConnection.ProviderName %>" SelectCommand="SELECT Employee_ID as 'รหัสพนักงาน', Employee_Name as 'ชื่อ', Employee_LName as 'นามสกุล' FROM employee"></asp:SqlDataSource>
                 </div>
 
                 <br />
@@ -112,7 +117,7 @@
                 <br />
 
                  <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False" AutoPostBack="True" OnTextChanged="txt_Subject_TextChanged"></dx:ASPxTextBox>
+                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False" AutoPostBack="True" OnTextChanged="txt_Subject_TextChanged" Font-Size="Medium"></dx:ASPxTextBox>
                 </div>
 
                 <br />

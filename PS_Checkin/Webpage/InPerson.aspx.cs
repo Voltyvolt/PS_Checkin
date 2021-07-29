@@ -21,24 +21,45 @@ namespace PS_Checkin.Webpage
         {
             if (!IsPostBack)
             {
+                //เช็ค Cookie
+                try
+                {
+                    string lvUserID = Request.Cookies["userInfo"]["UserID"];
+                    if (lvUserID != "")
+                    {
+                        txt_EmpID.Value = lvUserID;
+                        FncLoadDetail();
+                        ASPxButton1.Visible = false;
+                    }
+                    else
+                    {
+                        ASPxButton1.Visible = true;
+                    }
+                }
+                catch
+                {
+                    btn_CheckOUT.Enabled = false;
+                }
+
                 txt_EmpOUT.Visible = false;
-                btn_CheckOUT.Enabled = false;
+                
                 //รับข้อมูลแผนกจาก Link
                 var lvData = Request.QueryString["Data"].ToString();
 
                 //ค้นหาหมายเลข Local IP
-                IPAddress host = IPAddress.None;
-                var ips = Dns.GetHostAddresses(Dns.GetHostName());
-                foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
-                {
-                    host = ip;
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                        break;
-                }
+                //IPAddress host = IPAddress.None;
+                //var ips = Dns.GetHostAddresses(Dns.GetHostName());
+                //foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
+                //{
+                //    host = ip;
+                //    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                //        break;
+                //}
 
-                LocalMachine = host.ToString();
-                //LocalMachine = ips.ToString();
-                lb_local.Text = LocalMachine;
+                //LocalMachine = host.ToString();
+                ////LocalMachine = ips.ToString();
+                //lb_local.Text = LocalMachine;
+                lb_local.Text = "";
 
                 //แยกข้อมูลต่างๆ
                 string[] lvArr = lvData.Split(':');
@@ -49,7 +70,6 @@ namespace PS_Checkin.Webpage
                 
                 //เข้าฟังก์ชันโหลดข้อมูลลง Combobox
                 lb_Faction.Text = factionName;
-                fncLoadComboboxEmp(lvFactionCode);
                 lb_Date.Text = DateTime.Now.ToString("dd/MM/yyyy") + " ";
                 txt_DateTime.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lb_Time.Text = DateTime.Now.ToString("HH:mm") + " ";
@@ -63,122 +83,168 @@ namespace PS_Checkin.Webpage
 
             }
         }
-        
-        private void fncLoadComboboxEmp(string lvFactionCode)
-        {
-            //โหลดรหัสพนักงาน/ชื่อ 
-            DataTable DT = new DataTable();
-            var lvSQL = "Select Employee_ID, Employee_Name, Employee_LName From employee Where Employee_Faction IN ('" + lvFactionCode + "')";
-            DT = GsysSQL.fncGetQueryData(lvSQL, DT);
-
-            var EmpID = string.Empty;
-            var EmpName = string.Empty;
-            var EmpLName = string.Empty;
-            var EmpFullname = string.Empty;
-
-            cmb_Visitor.Items.Clear();
-
-            //วนลูปป้อนข้อมูลลงใน Combobox
-            for (int i = 0; i < DT.Rows.Count; i++)
-            {
-                EmpID = DT.Rows[i]["Employee_ID"].ToString();
-                EmpName = DT.Rows[i]["Employee_Name"].ToString();
-                EmpLName = DT.Rows[i]["Employee_LName"].ToString();
-                EmpFullname = EmpID + " " + EmpName + " " + EmpLName;
-
-                cmb_Visitor.Items.Add(EmpFullname);
-            }
-        }
 
         protected void btn_CheckIN_Click(object sender, EventArgs e)
         {
-            //ประกาศตัวแปร
-            var lvSQL = string.Empty;
-            var Success = string.Empty;
-            var Emp = txt_EmpID.Text;
-            var EmpSplit = Emp.Split(';');
-            var EmpID = EmpSplit[0];
-            var EmpName = EmpSplit[1] + " " + EmpSplit[2];
-            var Visitor = cmb_Visitor.Text;
-            var VisitorSplit = Visitor.Split(' ');
-            var VisitorID = VisitorSplit[0];
-            var VisitorName = VisitorSplit[1] + " " + VisitorSplit[2];
-            var Subject = txt_Subject.Text;
-            var DateIN = GsysFunc.fncChangeTDate(txt_DateTime.Text);
-            var TimeIN = txt_Time.Text;
-            var DateOUT = string.Empty;
-            var TimeOUT = string.Empty;
-            LocalMachine = lb_local.Text;
-            var Faction = lb_Fac.Text;
-            var Remark = string.Empty;
+            //สร้าง Cookie
+            string lvUserID = Gstr.fncGetDataCode(txt_EmpID.Text, ";");
+            FncCreateCookie(lvUserID);
 
-            var NameregCheck = GsysSQL.fncCheckCheckRegister(EmpName); //เช็คว่า Emp นี้เคย Register แล้วหรือไม่
-
-            if(NameregCheck == "")
+            try
             {
-                lvSQL = "Insert Into ps_checkinreg (Name, EmpID_Tel) Values ('" + EmpName + "', '" + EmpID + "')";
+                //ประกาศตัวแปร
+                var lvSQL = string.Empty;
+                var Success = string.Empty;
+                var Emp = txt_EmpID.Text;
+                var EmpSplit = Emp.Split(';');
+                var EmpID = EmpSplit[0];
+                var EmpName = EmpSplit[1] + " " + EmpSplit[2];
+                var Visitor = cmb_Visitor.Text;
+                var VisitorID = "";
+                var VisitorName = "";
+
+                if (Visitor != "")
+                {
+                    var VisitorSplit = Visitor.Split(';');
+                    VisitorID = VisitorSplit[0];
+                    VisitorName = VisitorSplit[1] + " " + VisitorSplit[2];
+                }
+
+                var Subject = txt_Subject.Text;
+                var DateIN = GsysFunc.fncChangeTDate(txt_DateTime.Text);
+                var TimeIN = txt_Time.Text;
+                var DateOUT = string.Empty;
+                var TimeOUT = string.Empty;
+                LocalMachine = lb_local.Text;
+                var Faction = lb_Fac.Text;
+                var Remark = string.Empty;
+
+                var NameregCheck = GsysSQL.fncCheckCheckRegister(EmpName); //เช็คว่า Emp นี้เคย Register แล้วหรือไม่
+
+                if (NameregCheck == "")
+                {
+                    lvSQL = "Insert Into ps_checkinreg (Name, EmpID_Tel) Values ('" + EmpName + "', '" + EmpID + "')";
+                    Success = GsysSQL.fncExecuteQueryData(lvSQL);
+                }
+
+                if (Subject == "")
+                {
+                    MessageboxAlert("กรุณากรอกเรื่องที่ติดต่อ");
+                    return;
+                }
+
+                //Insert ข้อมูล
+                lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, LocalMachine, Faction, Remark) " +
+                    "Values ('" + EmpID + "', '" + EmpName + "', '" + VisitorID + "', '" + VisitorName + "', '" + Subject + "', '" + DateIN + "', '" + TimeIN + "', " +
+                    "'" + DateOUT + "', '" + TimeOUT + "', '" + LocalMachine + "', '" + Faction + "','" + Remark + "')";
                 Success = GsysSQL.fncExecuteQueryData(lvSQL);
+
+                //ถ้าสำเร็จเด้งไปหน้า Finish
+                if (Success == "Success")
+                {
+                    Response.Redirect("Finish.aspx");
+                }
             }
 
-            if(Subject == "")
+            catch (Exception ex)
             {
-                MessageboxAlert("กรุณากรอกเรื่องที่ติดต่อ");
-                return;
-            }
 
-            //Insert ข้อมูล
-            lvSQL = "Insert Into ps_checkin (EmpID, EmpName, VisitorID, VisitorName, Subject, DateIN, TimeIN, DateOUT, TimeOUT, LocalMachine, Faction, Remark) " +
-                "Values ('" + EmpID + "', '" + EmpName + "', '" + VisitorID + "', '" + VisitorName + "', '" + Subject + "', '" + DateIN + "', '" + TimeIN + "', " +
-                "'" + DateOUT + "', '" + TimeOUT + "', '" + LocalMachine + "', '" + Faction + "','" + Remark + "')";
-            Success = GsysSQL.fncExecuteQueryData(lvSQL);
-
-            //ถ้าสำเร็จเด้งไปหน้า Finish
-            if(Success == "Success")
-            {
-                Response.Redirect("Finish.aspx");
             }
+            
         }
 
         protected void btn_CheckOUT_Click(object sender, EventArgs e)
         {
-            //ประกาศตัวแปร
-            var lvID = string.Empty;
-            var Emp = txt_EmpID.Text;
-            var EmpSplit = Emp.Split(';');
-            var EmpID = EmpSplit[0];
-            var EmpName = EmpSplit[1] + " " + EmpSplit[2];
-            var Visitor = cmb_Visitor.Text;
-            var VisitorSplit = Visitor.Split(' ');
-            var VisitorID = VisitorSplit[0];
-            var VisitorName = VisitorSplit[1] + " " + VisitorSplit[2];
-            var Subject = txt_Subject.Text;
-            var DateIN = string.Empty;
-            var TimeIN = string.Empty;
-            var DateOUT = GsysFunc.fncChangeTDate(txt_DateTime.Text);
-            var TimeOUT = txt_Time.Text;
-            var Remark = string.Empty;
-            var LocalMachine = lb_local.Text;
-
-            //ค้นหาหมายเลข ID อันสุดท้ายที่เช็คอินเข้ามา
-            DataTable DT = new DataTable();
-            var lvSQL = "Select * From ps_checkin Where EmpID = '" + EmpID + "' And DateIN <> '' Order by id Desc LIMIT 1";
-            DT = GsysSQL.fncGetQueryData(lvSQL, DT);
-
-            for (int i = 0; i < DT.Rows.Count; i++)
+            try
             {
-                lvID = DT.Rows[i]["ID"].ToString();
+                //ประกาศตัวแปร
+                var lvID = string.Empty;
+                var Emp = txt_EmpID.Text;
+                var EmpSplit = Emp.Split(';');
+                var EmpID = EmpSplit[0];
+                var EmpName = EmpSplit[1] + " " + EmpSplit[2];
+                var Visitor = cmb_Visitor.Text;
+                var VisitorID = "";
+                var VisitorName = "";
+
+                if (Visitor != "")
+                {
+                    var VisitorSplit = Visitor.Split(';');
+                    VisitorID = VisitorSplit[0];
+                    VisitorName = VisitorSplit[1] + " " + VisitorSplit[2];
+                }
+                
+
+                var Subject = txt_Subject.Text;
+                var DateIN = string.Empty;
+                var TimeIN = string.Empty;
+                var DateOUT = GsysFunc.fncChangeTDate(txt_DateTime.Text);
+                var TimeOUT = txt_Time.Text;
+                var Remark = string.Empty;
+                var LocalMachine = lb_local.Text;
+
+                //ค้นหาหมายเลข ID อันสุดท้ายที่เช็คอินเข้ามา
+                DataTable DT = new DataTable();
+                var lvSQL = "Select * From ps_checkin Where EmpID = '" + EmpID + "' And DateIN <> '' Order by id Desc LIMIT 1";
+                DT = GsysSQL.fncGetQueryData(lvSQL, DT);
+
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    lvID = DT.Rows[i]["ID"].ToString();
+                }
+
+                //Update วันและเวลาตอนเช็คเอาท์
+                lvSQL = "Update ps_checkin SET DateOUT = '" + DateOUT + "', TimeOUT = '" + TimeOUT + "' Where ID = '" + lvID + "'";
+                var Success = GsysSQL.fncExecuteQueryData(lvSQL);
+
+
+                //ถ้าสำเร็จเด้งไปหน้า Finish
+                if (Success == "Success")
+                {
+                    Response.Redirect("Finish.aspx");
+                }
             }
-
-            //Update วันและเวลาตอนเช็คเอาท์
-            lvSQL = "Update ps_checkin SET DateOUT = '" + DateOUT + "', TimeOUT = '" + TimeOUT + "' Where ID = '" + lvID + "'";
-            var Success = GsysSQL.fncExecuteQueryData(lvSQL);
-
-            
-            //ถ้าสำเร็จเด้งไปหน้า Finish
-            if (Success == "Success")
+             catch(Exception ex)
             {
-                Response.Redirect("Finish.aspx");
+                //ประกาศตัวแปร
+                var lvID = string.Empty;
+                var Emp = txt_EmpID.Text;
+                var EmpSplit = Emp.Split(';');
+                var EmpID = EmpSplit[0];
+                var EmpName = EmpSplit[1] + " " + EmpSplit[2];
+                var Visitor = cmb_Visitor.Text;
+                var VisitorID = "";
+                var VisitorName = "";
+                var Subject = txt_Subject.Text;
+                var DateIN = string.Empty;
+                var TimeIN = string.Empty;
+                var DateOUT = GsysFunc.fncChangeTDate(txt_DateTime.Text);
+                var TimeOUT = txt_Time.Text;
+                var Remark = string.Empty;
+                var LocalMachine = lb_local.Text;
+
+                //ค้นหาหมายเลข ID อันสุดท้ายที่เช็คอินเข้ามา
+                DataTable DT = new DataTable();
+                var lvSQL = "Select * From ps_checkin Where EmpID = '" + EmpID + "' And DateIN <> '' Order by id Desc LIMIT 1";
+                DT = GsysSQL.fncGetQueryData(lvSQL, DT);
+
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    lvID = DT.Rows[i]["ID"].ToString();
+                }
+
+                //Update วันและเวลาตอนเช็คเอาท์
+                lvSQL = "Update ps_checkin SET DateOUT = '" + DateOUT + "', TimeOUT = '" + TimeOUT + "' Where ID = '" + lvID + "'";
+                var Success = GsysSQL.fncExecuteQueryData(lvSQL);
+
+
+                //ถ้าสำเร็จเด้งไปหน้า Finish
+                if (Success == "Success")
+                {
+                    Response.Redirect("Finish.aspx");
+                }
             }
+           
         }
 
         protected void txtEmpID_TextChanged(object sender, EventArgs e)
@@ -189,6 +255,28 @@ namespace PS_Checkin.Webpage
         protected void ASPxButton1_Click(object sender, EventArgs e)
         {
             FncLoadDetail();
+        }
+
+        private void FncCreateCookie(string lvID)
+        {
+            //HttpCookie userInfo = new HttpCookie("userInfo");
+            //userInfo["UserID"] = lvID;
+            //userInfo.Expires.Add(DateTime.Now.AddDays(30));
+            //Response.Cookies.Add(userInfo);
+
+            ////*** Properties on the Cookies ***//
+            //Response.Cookies["userInfo"]["UserID"] = lvID;
+            //Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(7);
+
+            HttpCookie cookie = new HttpCookie("UserID");
+            cookie.Expires = DateTime.Now.AddDays(10);
+            HttpContext.Current.Response.SetCookie(cookie);
+
+            ////*** Instance of the HttpCookies ***//
+            //HttpCookie newCookie = new HttpCookie("UserID");
+            //newCookie["UserID"] = "2009";
+            //newCookie.Expires = DateTime.Now.AddDays(30);
+            //Response.Cookies.Add(newCookie);
         }
 
         private void FncLoadDetail()
@@ -248,7 +336,7 @@ namespace PS_Checkin.Webpage
                 txt_EmpID.Visible = true;
                 txt_EmpOUT.Visible = false;
                 var Visit = VisitorID + " " + VisitorName;
-                cmb_Visitor.Text = Visit;
+                cmb_Visitor.Value = VisitorID;
                 txt_Subject.Text = Subject;
 
                 //txt_EmpOUT.Enabled = false;
@@ -256,8 +344,7 @@ namespace PS_Checkin.Webpage
                 cmb_Visitor.Visible = true;
                 txt_Subject.Enabled = false;
                 txt_Subject.Visible = true;
-                btn_CheckIN.Enabled = false;
-                btn_CheckIN.Visible = true;
+                btn_CheckIN.Visible = false;
                 btn_CheckOUT.Enabled = true;
                 btn_CheckOUT.Visible = true;
                 Label2.Visible = true;
@@ -275,9 +362,16 @@ namespace PS_Checkin.Webpage
                 cmb_Visitor.Visible = true;
                 Label2.Visible = true;
                 Label3.Visible = true;
+                Label4.Visible = true;
+                Label5.Visible = true;
+                Label6.Visible = true;
                 Label7.Visible = true;
                 txt_Subject.Enabled = true;
                 txt_Subject.Visible = true;
+                btn_CheckIN.Visible = true;
+                btn_CheckOUT.Visible = false;
+                lb_Date.Visible = true;
+                lb_Time.Visible = true;
             }
                 
         }
@@ -405,7 +499,7 @@ namespace PS_Checkin.Webpage
             lb_Time.Visible = true;
             Label5.Visible = true;
             btn_CheckIN.Visible = true;
-            btn_CheckOUT.Visible = true;
+            btn_CheckOUT.Visible = false;
         }
     }
 }
