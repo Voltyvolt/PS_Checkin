@@ -63,11 +63,9 @@
                 <br />
                 <div>
                     <asp:Label ID="lb_Faction" Text="แผนกต่างๆ" runat="server"></asp:Label>
-                    <br />
-                    <br />
                 </div>
 
-                <br />
+               <br />
 
                 <div class="lael">
                     <asp:Label ID="Label4" Text="เบอร์โทรศัพท์" runat="server"></asp:Label>
@@ -94,48 +92,39 @@
                 <br />
 
                 <div class="lael">
-                    <asp:Label ID="Label2" Text="ผู้รับเรื่อง" runat="server"></asp:Label>
+                    <asp:Label ID="Label2" Text="ผู้ที่ต้องการติดต่อ" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="Label8" Text="(หากไม่มีไม่ต้องระบุ)" runat="server" Visible="False"></asp:Label>
                      <asp:Label ID="lb_Fac" runat="server" Visible="False"></asp:Label>
                 </div>
 
                 <br />
 
                  <div class="tbox">
-                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="300px" runat="server" ValueType="System.String" Theme="Glass"></dx:ASPxComboBox>
+                   <dx:ASPxComboBox ID="cmb_Visitor" CssClass="form-control" Width="300px" runat="server" ValueType="System.String" Theme="Glass" AutoPostBack="True" OnSelectedIndexChanged="cmb_Visitor_SelectedIndexChanged" Visible="False"></dx:ASPxComboBox>
                 </div>
 
                 <br />
 
                  <div class="lael">
-                    <asp:Label ID="Label3" Text="เรื่องที่ติดต่อ" runat="server"></asp:Label>
+                    <asp:Label ID="Label3" Text="เรื่องที่ติดต่อ" runat="server" Visible="False"></asp:Label>
                 </div>
 
                 <br />
 
                  <div class="tbox">
-                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS"></dx:ASPxTextBox>
-                </div>
-
-                <br />
-
-                  <div class="lael">
-                   
+                  <dx:ASPxTextBox ID="txt_Subject" PlaceHolder="กรอกข้อมูล" runat="server" Width="300px" Theme="iOS" Visible="False" AutoPostBack="True" OnTextChanged="txt_Subject_TextChanged"></dx:ASPxTextBox>
                 </div>
 
                 <br />
 
                 <div class="lael">
-                    <asp:Label ID="Label6" Text="วันที่ : " runat="server"></asp:Label>
-                <asp:Label ID="lb_Date" Text="วันที่/เวลา" runat="server"></asp:Label>
+                    <asp:Label ID="Label6" Text="วันที่ : " runat="server" Visible="False"></asp:Label>
+                <asp:Label ID="lb_Date" Text="วันที่/เวลา" runat="server" Visible="False"></asp:Label>
+
+                    <asp:Label ID="Label7" Text="เวลา : " runat="server" Visible="False"></asp:Label>
+                 <asp:Label ID="lb_Time" Text="วันที่/เวลา" runat="server" Visible="False"></asp:Label>
                     </div>
                    
-                <br />
-
-                <div class="lael">
-                     <asp:Label ID="Label7" Text="เวลา : " runat="server"></asp:Label>
-                 <asp:Label ID="lb_Time" Text="วันที่/เวลา" runat="server"></asp:Label>
-                    </div>
-
                   <div>
                     <dx:ASPxDateEdit ID="txt_DateTime" Date="2021-07-16" Font-Size="Medium" DisplayFormatString="dd/MM/yyyy" EditFormat="Custom" EditFormatString="dd/MM/yyyy" CssClass="form-control" Width="250px" runat="server" Theme="Glass" Visible="False"></dx:ASPxDateEdit>
                    <dx:ASPxTimeEdit ID="txt_Time" runat="server" Width="250px" Font-Size="Medium" CssClass="form-control" DisplayFormatString="HH:mm" EditFormat="Custom" EditFormatString="HH:mm" Theme="Glass" Visible="False"></dx:ASPxTimeEdit>
@@ -144,13 +133,13 @@
                 <br />
 
                  <div class="lael">
-                    <asp:Label ID="Label5" Text="กรุณาเช็คอินหรือเช็คเอาท์" runat="server"></asp:Label>
+                    <asp:Label ID="Label5" Text="กรุณาเช็คอินหรือเช็คเอาท์" runat="server" Visible="False"></asp:Label>
                 </div>
 
                  <br />
 
-                <asp:Button runat="server" Text="เข้า" ID="btn_CheckIN" CssClass="btn" Font-Size="X-Large" OnClick="btn_CheckIN_Click"/>
-                <asp:Button runat="server" Text="ออก" ID="btn_CheckOUT" CssClass="btn" Font-Size="X-Large" OnClick="btn_CheckOUT_Click" />
+                <asp:Button runat="server" Text="เข้า" ID="btn_CheckIN" CssClass="btn" Font-Size="X-Large" OnClick="btn_CheckIN_Click" Visible="False"/>
+                <asp:Button runat="server" Text="ออก" ID="btn_CheckOUT" CssClass="btn" Font-Size="X-Large" OnClick="btn_CheckOUT_Click" Visible="False" />
 
                 <dx:ASPxLoadingPanel ID="ASPxLoadingPanel1" runat="server" ClientInstanceName="LoadPanel" Modal="True" Theme="Moderno">
                     </dx:ASPxLoadingPanel>

@@ -50,9 +50,9 @@ namespace PS_Checkin.Webpage
                 //เข้าฟังก์ชันโหลดข้อมูลลง Combobox
                 lb_Faction.Text = factionName;
                 fncLoadComboboxEmp(lvFactionCode);
-                lb_Date.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                lb_Date.Text = DateTime.Now.ToString("dd/MM/yyyy") + " ";
                 txt_DateTime.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                lb_Time.Text = DateTime.Now.ToString("HH:mm");
+                lb_Time.Text = DateTime.Now.ToString("HH:mm") + " ";
                 txt_Time.Text = DateTime.Now.ToString("HH:mm");
 
                 //การซ่อนกล่องข้อมูล
@@ -268,10 +268,16 @@ namespace PS_Checkin.Webpage
                 lb_Date.Visible = true;
                 lb_Time.Visible = true;
             }
+
             else
             {
                 Label2.Visible = true;
                 cmb_Visitor.Visible = true;
+                Label2.Visible = true;
+                Label3.Visible = true;
+                Label7.Visible = true;
+                txt_Subject.Enabled = true;
+                txt_Subject.Visible = true;
             }
                 
         }
@@ -370,33 +376,36 @@ namespace PS_Checkin.Webpage
 
         protected void cmb_Visitor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Label3.Visible = true;
-            txt_Subject.Visible = true;
-            Label4.Visible = true;
-            lb_Date.Visible = true;
-            Label6.Visible = true;
-            lb_Time.Visible = true;
-            Label5.Visible = true;
-            btn_CheckIN.Visible = true;
-            btn_CheckOUT.Visible = true;
+            //Label3.Visible = true;
+            //txt_Subject.Visible = true;
+            //Label4.Visible = true;
+            //lb_Date.Visible = true;
+            //Label6.Visible = true;
+            //lb_Time.Visible = true;
+            //Label5.Visible = true;
+            //btn_CheckIN.Visible = true;
+            //btn_CheckOUT.Visible = true;
         }
 
         protected void cmb_Visitor_ValueChanged(object sender, EventArgs e)
         {
-            Label3.Visible = true;
-            txt_Subject.Visible = true;
-            Label4.Visible = true;
-            lb_Date.Visible = true;
-            Label6.Visible = true;
-            lb_Time.Visible = true;
-            Label5.Visible = true;
-            btn_CheckIN.Visible = true;
-            btn_CheckOUT.Visible = true;
+            
         }
 
         private void MessageboxAlert(string lvMessage)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + lvMessage + "');", true);
+        }
+
+        protected void txt_Subject_TextChanged(object sender, EventArgs e)
+        {
+            Label4.Visible = true;
+            lb_Date.Visible = true;
+            Label6.Visible = true;
+            lb_Time.Visible = true;
+            Label5.Visible = true;
+            btn_CheckIN.Visible = true;
+            btn_CheckOUT.Visible = true;
         }
     }
 }

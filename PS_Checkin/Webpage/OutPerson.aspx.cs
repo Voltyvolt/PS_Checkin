@@ -31,9 +31,9 @@ namespace PS_Checkin.Webpage
                 lb_Faction.Text = factionName;
                 fncLoadComboboxEmp(lvFactionCode);
                 txt_DateTime.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                lb_Date.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                lb_Date.Text = DateTime.Now.ToString("dd/MM/yyyy") + " ";
                 txt_Time.Text = DateTime.Now.ToString("HH:mm");
-                lb_Time.Text = DateTime.Now.ToString("HH:mm");
+                lb_Time.Text = DateTime.Now.ToString("HH:mm") + " ";
             }
         }
 
@@ -126,13 +126,33 @@ namespace PS_Checkin.Webpage
                 txt_Subject.Text = Subject;
 
                 //txt_EmpOUT.Enabled = false;
-                txt_Name.Enabled = false;
                 cmb_Visitor.Enabled = false;
+                cmb_Visitor.Visible = true;
                 txt_Subject.Enabled = false;
+                txt_Subject.Visible = true;
                 btn_CheckIN.Enabled = false;
+                btn_CheckIN.Visible = true;
                 btn_CheckOUT.Enabled = true;
+                btn_CheckOUT.Visible = true;
+                Label2.Visible = true;
+                Label3.Visible = true;
+                Label4.Visible = true;
+                Label5.Visible = true;
+                Label6.Visible = true;
+                Label7.Visible = true;
+                lb_Date.Visible = true;
+                lb_Time.Visible = true;
             }
-
+            else
+            {
+                Label2.Visible = true;
+                cmb_Visitor.Visible = true;
+                Label2.Visible = true;
+                Label3.Visible = true;
+                txt_Subject.Enabled = true;
+                txt_Subject.Visible = true;
+            }
+            
         }
 
         protected void btn_CheckIN_Click(object sender, EventArgs e)
@@ -221,6 +241,24 @@ namespace PS_Checkin.Webpage
         protected void txt_Tel_TextChanged(object sender, EventArgs e)
         {
             FncLoadDetail();
+        }
+
+        protected void cmb_Visitor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void txt_Subject_TextChanged(object sender, EventArgs e)
+        {
+            Label3.Visible = true;
+            txt_Subject.Visible = true;
+            Label6.Visible = true;
+            lb_Date.Visible = true;
+            Label7.Visible = true;
+            lb_Time.Visible = true;
+            Label5.Visible = true;
+            btn_CheckIN.Visible = true;
+            btn_CheckOUT.Visible = true;
         }
     }
 }
