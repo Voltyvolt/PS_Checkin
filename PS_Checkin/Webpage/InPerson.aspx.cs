@@ -264,19 +264,23 @@ namespace PS_Checkin.Webpage
             //userInfo.Expires.Add(DateTime.Now.AddDays(30));
             //Response.Cookies.Add(userInfo);
 
-            ////*** Properties on the Cookies ***//
-            //Response.Cookies["userInfo"]["UserID"] = lvID;
-            //Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(7);
+            //HttpCookie cookie = new HttpCookie("UserID");
+            //cookie.Expires = DateTime.Now.AddDays(10);
+            //HttpContext.Current.Response.SetCookie(cookie);
 
-            HttpCookie cookie = new HttpCookie("UserID");
-            cookie.Expires = DateTime.Now.AddDays(10);
-            HttpContext.Current.Response.SetCookie(cookie);
+            //*** Properties on the Cookies ***//
+            Response.Cookies["userInfo"]["UserID"] = lvID;
+            Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(7);
 
             ////*** Instance of the HttpCookies ***//
             //HttpCookie newCookie = new HttpCookie("UserID");
             //newCookie["UserID"] = "2009";
             //newCookie.Expires = DateTime.Now.AddDays(30);
             //Response.Cookies.Add(newCookie);
+
+            //int LiveSessionsCount = (int)Application["LiveSessionsCount"];
+            //string MyCookieValue = "V" + LiveSessionsCount.ToString();
+            //Response.Cookies["MyCookieKey"][""] = MyCookieValue;
         }
 
         private void FncLoadDetail()
